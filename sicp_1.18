@@ -1,0 +1,18 @@
+(define (mult a b c)
+  (define (even? n)
+    (= (remainder n 2) 0)
+  )
+  
+  (define (double n)
+      (* n 2)
+  )
+  
+  (define (halve n)
+      (/ n 2)
+  )
+  
+  (cond ((= b 0) c)
+        ((even? b) (mult (double a) (halve b) c))
+        (else (mult a (- b 1) (+ c a)))
+  )
+)
