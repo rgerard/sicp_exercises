@@ -1,0 +1,30 @@
+(define (simpson-integral f a b n)
+  (define (even? n)
+      (= (remainder n 2) 0)
+  )
+
+  (define (get-h a b n)
+    (/ (- b a) n)
+  )
+  
+  (define (compute-y-k f a b n k)
+    (f (+ a (* k (get-h a b n))))
+  )
+  
+  (define (get-multiplier k n)
+    (cond ((= k 0) 1)
+          ((= k n) 1)
+          ((even? k) 2)
+          (else 4)
+    )
+  )
+  
+  (define (compute-sum f a b n k)
+    (if (> k n)
+        0
+        (+ (* (get-multiplier k n) (compute-y-k f a b n k)) (compute-sum f a b n (+ k 1)))
+    )
+  )
+  
+  (* (compute-sum f a b n 0) (/ (get-h a b n) 3))
+)
